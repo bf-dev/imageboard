@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css"
+		/>
+
+		<style>
+			body {
+				text-align: center;
+				font-family: Pretendard, -apple-system, BlinkMacSystemFont,
+					system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+					"Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
+					sans-serif;
+				margin: 0;
+			}
+			.title {
+				font-size: 2em;
+				font-weight: 700;
+			}
+		</style>
+	</head>
+	<body>
+		<p class="title">사진 올리기</p>
+		<image id="previewImage" style="height: 60vh"></image>
+
+		<form action="/" method="POST" enctype="multipart/form-data">
+			제목
+			<input
+				name="title"
+				style="font-size: large; padding: 4px 5px"
+			/><br />
+
+			<input type="file" name="file" id="inputImage" accept="image/*" />
+			<button>업로드</button>
+		</form>
+	</body>
+	<script>
+		function readImage(input) {
+			if (input.files && input.files[0]) {
+				const reader = new FileReader();
+
+				reader.onload = (e) => {
+					const previewImage =
+						document.getElementById("previewImage");
+					previewImage.src = e.target.result;
+				};
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+		// 이벤트 리스너
+		document
+			.getElementById("inputImage")
+			.addEventListener("change", (e) => {
+				readImage(e.target);
+			});
+	</script>
+</html>
